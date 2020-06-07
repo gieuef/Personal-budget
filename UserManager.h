@@ -31,6 +31,7 @@ public:
         users = fileWithUsers.loadUsersFromFile();
     }
     void userRegistration();
+    void userLogging();
     bool isUserLoggedIn();
     int getLoggedInUserId();
 

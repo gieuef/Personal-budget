@@ -64,7 +64,7 @@ bool UserManager::loginExists(string login)
     {
         if (users[i].getLogin() == login)
         {
-            cout << endl << "Istnieje uzytkownik o takim loginie." << endl;
+            cout << endl << "Login exists. Enter another login" << endl;
             return true;
         }
     }
@@ -78,5 +78,43 @@ bool UserManager::isUserLoggedIn()
         return true;
     else
         return false;
+
+}
+
+
+void UserManager::userLogging()
+{
+    string login = "", password = "";
+
+    cout << endl << "Enter login: ";
+    login = AuxiliaryMethods::loadLine();
+
+    vector <User>::iterator itr = users.begin();
+    while (itr != users.end())
+    {
+        if (itr -> getLogin() == login)
+        {
+            for (int attempts = 3; attempts > 0; attempts--)
+            {
+                cout << "Enter password. Attempts left " << attempts << ": ";
+                password = AuxiliaryMethods::loadLine();
+
+                if (itr -> getPassword() == password)
+                {
+                    loggedUserId = itr -> getUserId();
+                    cout << endl << "You are logged in" << endl << endl;
+                    system("pause");
+                    return;
+                }
+            }
+            cout << "you entered incorrectly password 3 times" << endl;
+            system("pause");
+            return;
+        }
+        itr++;
+    }
+    cout << "User with such login doesn't exist" << endl << endl;
+    system("pause");
+    return;
 
 }

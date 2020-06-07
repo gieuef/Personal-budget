@@ -9,7 +9,7 @@ class AuxiliaryMethods
 {
 public:
    //static string konwerjsaIntNaString(int liczba);
-   //static string wczytajLinie();
+   static string loadLine();
    static int convertStringToInteger(string liczba);
    //static int wczytajLiczbeCalkowita();
    static char loadChar();

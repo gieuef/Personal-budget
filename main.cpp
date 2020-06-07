@@ -22,9 +22,9 @@ while (true)
             case '1':
                 personalBudget.userRegistration();
                 break;
-            //case '2':
-            //    personalBudget.userLogging();
-            //    break;
+            case '2':
+               personalBudget.userLogging();
+               break;
             case '9':
                 exit(0);
                 break;
@@ -36,9 +36,10 @@ while (true)
         }
         else
         {
-         /*   choise = personalBudget.chooseOptionFromUserMenu();
+          choice = personalBudget.chooseOptionFromUserMenu();
 
-            switch (choise)
+         /*
+            switch (choice)
             {
             case '1':
                 personalBudget.addIncome();
