@@ -11,14 +11,15 @@ string AuxiliaryMethods::konwerjsaIntNaString(int liczba)
     string str = ss.str();
     return str;
 }
-
-string AuxiliaryMethods::wczytajLinie()
-{
-    string wejscie = "";
-    getline(cin, wejscie);
-    return wejscie;
-}
 */
+
+string AuxiliaryMethods::loadLine()
+{
+    string input = "";
+    getline(cin, input);
+    return input;
+}
+
 
 int AuxiliaryMethods::convertStringToInteger(string number)
 {

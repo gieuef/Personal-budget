@@ -20,14 +20,14 @@ public:
     };
 
     void userRegistration();
-    //void userLogging();
+    void userLogging();
     //void addIncome();
     //void addExpense();
     //void balanceFromCurrentMonth();
     //void balanceFromPreviousMonth();
     //void balanceFromSelectedPeriod();
     char chooseOptionFromMainMenu();
-    //char chooseOptionFromUserMenu();
+    char chooseOptionFromUserMenu();
     bool isUserLogged();
     //void changeLoggedUserPassword();
     //void userLogout();
