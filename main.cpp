@@ -6,12 +6,14 @@ using namespace std;
 
 int main()
 {
-    PersonalBudget personalBudget("users.xml");
+
+
+    PersonalBudget personalBudget("users.xml","incomes.xml","expenses.xml");
 
     char choice;
 
 
-while (true)
+    while (true)
     {
         if (personalBudget.isUserLogged() == 0)
         {
@@ -23,8 +25,8 @@ while (true)
                 personalBudget.userRegistration();
                 break;
             case '2':
-               personalBudget.userLogging();
-               break;
+                personalBudget.userLogging();
+                break;
             case '9':
                 exit(0);
                 break;
@@ -36,9 +38,9 @@ while (true)
         }
         else
         {
-          choice = personalBudget.chooseOptionFromUserMenu();
+            choice = personalBudget.chooseOptionFromUserMenu();
 
-         /*
+
             switch (choice)
             {
             case '1':
@@ -47,25 +49,26 @@ while (true)
             case '2':
                 personalBudget.addExpense();
                 break;
+            /*
             case '3':
-                personalBudget.balanceFromCurrentMonth();
-                break;
+            personalBudget.balanceFromCurrentMonth();
+            break;
             case '4':
-                personalBudget.balanceFromPreviousMonth();
-                break;
+            personalBudget.balanceFromPreviousMonth();
+            break;
             case '5':
-                personalBudget.balanceFromSelectedPeriod();
-                break;
+            personalBudget.balanceFromSelectedPeriod();
+            break;
             case '6':
-                personalBudget.changeLoggedUserPassword();
-                break;
+            personalBudget.changeLoggedUserPassword();
+            break;
+            */
             case '9':
                 personalBudget.userLogout();
                 break;
             }
-            */
         }
     }
 
-     return 0;
+    return 0;
 }

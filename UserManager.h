@@ -34,6 +34,7 @@ public:
     void userLogging();
     bool isUserLoggedIn();
     int getLoggedInUserId();
+    void userLogout();
 
 };
 

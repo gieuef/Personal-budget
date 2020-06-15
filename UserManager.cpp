@@ -118,3 +118,14 @@ void UserManager::userLogging()
     return;
 
 }
+
+int UserManager::getLoggedInUserId()
+{
+    return loggedUserId;
+}
+
+
+void UserManager::userLogout()
+{
+    loggedUserId = 0;
+}
