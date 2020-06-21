@@ -34,13 +34,13 @@ public:
     void userLogging();
     void addIncome();
     void addExpense();
-    //void balanceFromCurrentMonth();
-    //void balanceFromPreviousMonth();
-    //void balanceFromSelectedPeriod();
+    void balanceFromCurrentMonth();
+    void balanceFromPreviousMonth();
+    void balanceFromSelectedPeriod();
     char chooseOptionFromMainMenu();
     char chooseOptionFromUserMenu();
     bool isUserLogged();
-    //void changeLoggedUserPassword();
+    void changeLoggedUserPassword();
     void userLogout();
 };
 

@@ -124,6 +124,33 @@ int UserManager::getLoggedInUserId()
     return loggedUserId;
 }
 
+void UserManager::changeLoggedUserPassword()
+{
+     if (loggedUserId > 0)
+    {
+        string newPassword = "";
+        cout << "Enter new password: ";
+        newPassword = AuxiliaryMethods::loadLine();
+
+        for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++)
+        {
+            if (itr -> getUserId() == loggedUserId)
+            {
+                itr -> setPassword(newPassword);
+                cout << "Password changed." << endl << endl;
+                system("pause");
+            }
+        }
+        fileWithUsers.saveAllUsersToFile(loggedUserId, newPassword);
+        //plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku(uzytkownicy);
+    }
+    else
+    {
+        cout << "To change password, please first log in." << endl;
+        system("pause");
+    }
+}
+
 
 void UserManager::userLogout()
 {

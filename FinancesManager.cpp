@@ -124,3 +124,233 @@ Expense FinancesManager::enterDataOfNewExpense()
     return expense;
 
 }
+
+void FinancesManager::balanceFromCurrentMonth()
+{
+    vector <Income> incomesToBalance;
+    vector <Expense> expensesToBalnace;
+
+    string balanceBeginDate ,balanceEndDate;
+    double sumOfIncomes=0.0, sumOfExpenses=0.0;
+
+
+    system("cls");
+    cout << " >>> BALANCE FROM CURRENT MONTH <<<" << endl << endl;
+    cout << "INCOMES:" << endl;
+
+
+    balanceEndDate = AuxiliaryMethods::getTodaysDate();
+
+
+
+    time_t czas;
+    struct tm * ptr;
+    string year, month, day, date;
+
+    time( & czas );
+    ptr = localtime( & czas );
+
+    year = AuxiliaryMethods::convertIntToString( ptr->tm_year+1900);
+    month = AuxiliaryMethods::convertIntToString( ptr->tm_mon+1);
+    if (month.length() == 1)
+        month="0"+month;
+
+   balanceBeginDate = year + "-" + month + "-01";
+
+
+   for (int i=0; i<incomes.size(); i++)
+    if (   !(AuxiliaryMethods::compareTwoDates(incomes[i].getDate(), balanceBeginDate)) && !(AuxiliaryMethods::compareTwoDates(balanceEndDate,incomes[i].getDate()  )  ) )
+        incomesToBalance.push_back(incomes[i]);
+
+        sort(incomesToBalance.begin() , incomesToBalance.end() , AuxiliaryMethods::compareIncomeByDate );
+
+
+        for (int i=0; i<expenses.size(); i++)
+    if (   !(AuxiliaryMethods::compareTwoDates(expenses[i].getDate(), balanceBeginDate)) && !(AuxiliaryMethods::compareTwoDates(balanceEndDate,expenses[i].getDate()  )  ) )
+        expensesToBalnace.push_back(expenses[i]);
+
+        sort(expensesToBalnace.begin() , expensesToBalnace.end() , AuxiliaryMethods::compareExpenseByDate );
+
+
+
+for (int i=0; i<incomesToBalance.size(); i++)
+{
+    sumOfIncomes+=incomesToBalance[i].getAmount();
+    cout << incomesToBalance[i].getDate() << "   ";
+    cout << incomesToBalance[i].getItem() << "   ";
+    cout << incomesToBalance[i].getAmount() << endl;
+}
+
+ cout << "---------------------------" << endl << endl;
+
+ cout <<setprecision(2)<<fixed<< " Sum of incomes:      " << sumOfIncomes << endl << endl;
+ cout << "EXPENSES:" << endl;
+
+ for (int i=0; i<expensesToBalnace.size(); i++)
+{
+    sumOfExpenses+=expensesToBalnace[i].getAmount();
+    cout << expensesToBalnace[i].getDate() << "   ";
+    cout << expensesToBalnace[i].getItem() << "   ";
+    cout << expensesToBalnace[i].getAmount() << endl;
+}
+
+ cout << "---------------------------" << endl << endl;
+
+
+  cout <<setprecision(2)<<fixed<< " Sum of expenses:      " << sumOfExpenses << endl << endl;
+
+ cout <<setprecision(2)<<fixed<< " BALANCE:           " << sumOfIncomes-sumOfExpenses << endl;
+
+
+system("pause");
+incomesToBalance.clear();
+expensesToBalnace.clear();
+
+}
+
+
+void FinancesManager::balanceFromPreviousMonth()
+{
+    vector <Income> incomesToBalance;
+    vector <Expense> expensesToBalnace;
+
+    string balanceBeginDate ,balanceEndDate;
+    double sumOfIncomes=0.0, sumOfExpenses=0.0;
+
+
+    system("cls");
+    cout << " >>> BALANCE FROM PREVIOUS MONTH <<<" << endl << endl;
+    cout << "INCOMES:" << endl;
+
+
+    balanceBeginDate = AuxiliaryMethods::getPreviousMonthBeginDate();
+
+    balanceEndDate = AuxiliaryMethods::getPreviousMonthEndDate();
+
+
+   for (int i=0; i<incomes.size(); i++)
+    if (   !(AuxiliaryMethods::compareTwoDates(incomes[i].getDate(), balanceBeginDate)) && !(AuxiliaryMethods::compareTwoDates(balanceEndDate,incomes[i].getDate()  )  ) )
+        incomesToBalance.push_back(incomes[i]);
+
+        sort(incomesToBalance.begin() , incomesToBalance.end() , AuxiliaryMethods::compareIncomeByDate );
+
+
+        for (int i=0; i<expenses.size(); i++)
+    if (   !(AuxiliaryMethods::compareTwoDates(expenses[i].getDate(), balanceBeginDate)) && !(AuxiliaryMethods::compareTwoDates(balanceEndDate,expenses[i].getDate()  )  ) )
+        expensesToBalnace.push_back(expenses[i]);
+
+        sort(expensesToBalnace.begin() , expensesToBalnace.end() , AuxiliaryMethods::compareExpenseByDate );
+
+
+
+for (int i=0; i<incomesToBalance.size(); i++)
+{
+    sumOfIncomes+=incomesToBalance[i].getAmount();
+    cout << incomesToBalance[i].getDate() << "   ";
+    cout << incomesToBalance[i].getItem() << "   ";
+    cout << incomesToBalance[i].getAmount() << endl;
+}
+
+ cout << "---------------------------" << endl << endl;
+
+ cout <<setprecision(2)<<fixed<< " Sum of incomes:      " << sumOfIncomes << endl << endl;
+ cout << "EXPENSES:" << endl;
+
+ for (int i=0; i<expensesToBalnace.size(); i++)
+{
+    sumOfExpenses+=expensesToBalnace[i].getAmount();
+    cout << expensesToBalnace[i].getDate() << "   ";
+    cout << expensesToBalnace[i].getItem() << "   ";
+    cout << expensesToBalnace[i].getAmount() << endl;
+}
+
+ cout << "---------------------------" << endl << endl;
+
+
+  cout <<setprecision(2)<<fixed<< " Sum of expenses:      " << sumOfExpenses << endl << endl;
+
+ cout <<setprecision(2)<<fixed<< " BALANCE:           " << sumOfIncomes-sumOfExpenses << endl;
+
+
+system("pause");
+
+incomesToBalance.clear();
+expensesToBalnace.clear();
+
+}
+
+
+void FinancesManager::balanceFromSelectedPeriod()
+{
+    vector <Income> incomesToBalance;
+    vector <Expense> expensesToBalnace;
+
+    string balanceBeginDate ,balanceEndDate;
+    double sumOfIncomes=0.0, sumOfExpenses=0.0;
+
+
+    system("cls");
+
+    cout << "Enter begin date in format yyyy-mm-dd. Date must be from 2000-01-01 to last day of current month" << endl;
+        balanceBeginDate = AuxiliaryMethods::loadDate();
+
+        cout << "Enter end date in format yyyy-mm-dd. Date must be from 2000-01-01 to last day of current month" << endl;
+        cout << "Important! Begin date must be earlier than end date " << endl;
+        balanceEndDate = AuxiliaryMethods::loadDate();
+
+
+    cout << endl << " >>> BALANCE FROM SELECTED PERIOD <<<" << endl << endl;
+    cout << "INCOMES:" << endl;
+
+
+
+   for (int i=0; i<incomes.size(); i++)
+    if (   !(AuxiliaryMethods::compareTwoDates(incomes[i].getDate(), balanceBeginDate)) && !(AuxiliaryMethods::compareTwoDates(balanceEndDate,incomes[i].getDate()  )  ) )
+        incomesToBalance.push_back(incomes[i]);
+
+        sort(incomesToBalance.begin() , incomesToBalance.end() , AuxiliaryMethods::compareIncomeByDate );
+
+
+        for (int i=0; i<expenses.size(); i++)
+    if (   !(AuxiliaryMethods::compareTwoDates(expenses[i].getDate(), balanceBeginDate)) && !(AuxiliaryMethods::compareTwoDates(balanceEndDate,expenses[i].getDate()  )  ) )
+        expensesToBalnace.push_back(expenses[i]);
+
+        sort(expensesToBalnace.begin() , expensesToBalnace.end() , AuxiliaryMethods::compareExpenseByDate );
+
+
+
+for (int i=0; i<incomesToBalance.size(); i++)
+{
+    sumOfIncomes+=incomesToBalance[i].getAmount();
+    cout << incomesToBalance[i].getDate() << "   ";
+    cout << incomesToBalance[i].getItem() << "   ";
+    cout << incomesToBalance[i].getAmount() << endl;
+}
+
+ cout << "---------------------------" << endl << endl;
+
+ cout <<setprecision(2)<<fixed<< " Sum of incomes:      " << sumOfIncomes << endl << endl;
+ cout << "EXPENSES:" << endl;
+
+ for (int i=0; i<expensesToBalnace.size(); i++)
+{
+    sumOfExpenses+=expensesToBalnace[i].getAmount();
+    cout << expensesToBalnace[i].getDate() << "   ";
+    cout << expensesToBalnace[i].getItem() << "   ";
+    cout << expensesToBalnace[i].getAmount() << endl;
+}
+
+ cout << "---------------------------" << endl << endl;
+
+
+  cout <<setprecision(2)<<fixed<< " Sum of expenses:      " << sumOfExpenses << endl << endl;
+
+ cout <<setprecision(2)<<fixed<< " BALANCE:           " << sumOfIncomes-sumOfExpenses << endl;
+
+
+system("pause");
+
+incomesToBalance.clear();
+expensesToBalnace.clear();
+
+}

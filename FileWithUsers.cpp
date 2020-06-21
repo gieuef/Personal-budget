@@ -75,5 +75,39 @@ void FileWithUsers::addUserToFile(User user)
 
     xml.Save(getFileName());
 
-
 }
+
+
+void FileWithUsers::saveAllUsersToFile(int loggedUserId, string newPassword)
+{
+
+    xml.Load(getFileName());
+
+    xml.FindElem();
+    xml.IntoElem();
+
+
+    while ( xml.FindElem("user") )
+    {
+        xml.IntoElem();
+        xml.FindElem( "userId" );
+        string strUserID = xml.GetData();
+
+        int intUserID =  AuxiliaryMethods::convertStringToInteger(strUserID) ;
+
+        if (intUserID == loggedUserId)
+        {
+            xml.FindElem( "password" );
+            xml.RemoveElem();
+            xml.AddElem("password",newPassword);
+        }
+
+        xml.OutOfElem();
+
+    }
+
+    xml.Save(getFileName());
+}
+
+
+
