@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include <time.h>
 #include <conio.h>
-#include <locale>
 
 
 string AuxiliaryMethods::convertIntToString(int number)
@@ -159,31 +158,117 @@ string AuxiliaryMethods::loadDate()
     return input;
 }
 
-/*
-int AuxiliaryMethods::wczytajLiczbeCalkowita()
+
+
+string AuxiliaryMethods::getPreviousMonthBeginDate()
 {
-    string wejscie = "";
-    int liczba = 0;
+    string previousMonthBeginDate = "";
+    string str;
 
-    while (true)
-    {
-        getline(cin, wejscie);
+    int previousMonth, previousYear;
 
-        stringstream myStream(wejscie);
-        if (myStream >> liczba)
-            break;
-        cout << "To nie jest liczba. Wpisz ponownie. " << endl;
-    }
-    return liczba;
+    time_t czas;
+    struct tm * ptr;
+
+    time( & czas );
+    ptr = localtime( & czas );
+
+    previousMonth=ptr->tm_mon;
+    previousYear=ptr->tm_year+1900;
+
+
+                        string month = AuxiliaryMethods::convertIntToString(previousMonth);
+                        if (month.length() == 1)
+        month="0"+month;
+
+           previousMonthBeginDate = AuxiliaryMethods::convertIntToString(previousYear) + "-" + month + "-01";
+
+           return previousMonthBeginDate;
 }
 
-string AuxiliaryMethods::zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst)
+string AuxiliaryMethods::getPreviousMonthEndDate()
 {
-    if (!tekst.empty())
-    {
-        transform(tekst.begin(), tekst.end(), tekst.begin(), ::tolower);
-        tekst[0] = toupper(tekst[0]);
-    }
-    return tekst;
+    string previousMonthEndDate = "";
+    string str;
+
+    int numberOfdaysInMonthTab[12]= {31,28,31,30,31,30,31,31,30,31,30,31};
+    int numberOfdaysInMonth;
+    int previousMonth, previousYear;
+
+    time_t czas;
+    struct tm * ptr;
+
+    time( & czas );
+    ptr = localtime( & czas );
+
+    previousMonth=ptr->tm_mon;
+    previousYear=ptr->tm_year+1900;
+
+
+
+                numberOfdaysInMonth=numberOfdaysInMonthTab[previousMonth-1];
+                if (numberOfdaysInMonth == 28)
+                    if (((previousYear % 4 == 0) && (previousYear % 100 != 0)) || (previousYear % 400 == 0))
+                        numberOfdaysInMonth++;
+
+                        string month = AuxiliaryMethods::convertIntToString(previousMonth);
+                        if (month.length() == 1)
+        month="0"+month;
+
+           previousMonthEndDate = AuxiliaryMethods::convertIntToString(previousYear) + "-" + month + "-" + AuxiliaryMethods::convertIntToString(numberOfdaysInMonth);
+
+           return previousMonthEndDate;
 }
-*/
+
+
+bool AuxiliaryMethods::compareIncomeByDate(Income i1, Income i2)
+{
+    return compareTwoDates(i1.getDate(), i2.getDate());
+}
+
+
+bool AuxiliaryMethods::compareExpenseByDate(Expense e1, Expense e2)
+{
+    return compareTwoDates(e1.getDate(), e2.getDate());
+}
+
+bool AuxiliaryMethods::compareTwoDates(string d1, string d2)
+{
+    string str;
+    int day1,month1,year1;
+    int day2,month2,year2;
+    time_t t;
+    struct tm * date1;
+    struct tm * date2;
+
+    year1 = convertStringToInteger( str.assign(d1,0,4) );
+    month1 = convertStringToInteger( str.assign(d1,5,2));
+    day1 = convertStringToInteger(str.assign(d1,8,2));
+
+    year2 = convertStringToInteger( str.assign(d2,0,4) );
+    month2 = convertStringToInteger( str.assign(d2,5,2));
+    day2 = convertStringToInteger(str.assign(d2,8,2));
+
+    time( & t );
+    date1 = localtime( & t );
+
+    date1->tm_year = year1 - 1900;
+    date1->tm_mon = month1 - 1;
+    date1->tm_mday = day1;
+
+    time_t tDate1 = mktime(date1);
+
+    date2 = localtime(& t);
+    date2->tm_year = year2 - 1900;
+    date2->tm_mon = month2 - 1;
+    date2->tm_mday = day2;
+
+    time_t tDate2 = mktime(date1);
+
+    if (difftime(tDate2,tDate1) > 0.0 ) return true; else return false;
+}
+
+
+
+
+

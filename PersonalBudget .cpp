@@ -84,9 +84,55 @@ void PersonalBudget::addExpense()
     }
     else
     {
-        cout << "To add income, please first log in " << endl;
+        cout << "To add expense, please first log in " << endl;
         system("pause");
     }
+}
+
+void PersonalBudget::balanceFromCurrentMonth()
+{
+    if (userManager.isUserLoggedIn())
+    {
+        financesManager->balanceFromCurrentMonth();
+    }
+    else
+    {
+        cout << "To display balance, please first log in " << endl;
+        system("pause");
+    }
+}
+
+
+void PersonalBudget::balanceFromPreviousMonth()
+{
+    if (userManager.isUserLoggedIn())
+    {
+        financesManager->balanceFromPreviousMonth();
+    }
+    else
+    {
+        cout << "To display balance, please first log in " << endl;
+        system("pause");
+    }
+}
+
+void PersonalBudget::balanceFromSelectedPeriod()
+{
+    if (userManager.isUserLoggedIn())
+    {
+        financesManager->balanceFromSelectedPeriod();
+    }
+    else
+    {
+        cout << "To display balance, please first log in " << endl;
+        system("pause");
+    }
+}
+
+
+void PersonalBudget::changeLoggedUserPassword()
+{
+    userManager.changeLoggedUserPassword();
 }
 
 void PersonalBudget::userLogout()

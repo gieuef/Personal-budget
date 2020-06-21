@@ -7,6 +7,10 @@
 #include <windows.h>
 #include <fstream>
 #include <sstream>
+#include <time.h>
+#include <conio.h>
+#include <algorithm>
+#include <iomanip>
 
 #include "Income.h"
 #include "Expense.h"
@@ -38,6 +42,11 @@ public:
 
     void addIncome();
     void addExpense();
+    void balanceFromCurrentMonth();
+    void balanceFromPreviousMonth();
+    void balanceFromSelectedPeriod();
+
+
 
 };
 

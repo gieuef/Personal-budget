@@ -21,6 +21,7 @@ public:
     FileWithUsers(string fileNameOfUsers) : XmlFile(fileNameOfUsers) {};
     void addUserToFile(User user);
     vector <User>  loadUsersFromFile();
+    void saveAllUsersToFile(int loggedUserId, string newPassword);
 };
 
 
